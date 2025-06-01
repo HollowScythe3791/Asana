@@ -8,10 +8,10 @@ namespace Asana
         public static void Main(string[] args)
         {
             var toDos = new List<ToDo>();
+            var projects = new List<Project>();
             int choiceInt;
-            var itemCount = 0;
-            var toDoChoice = 0;
-            
+            int priorityChoiceInt;
+            var todoCount = 0;
             var projectCount = 0;
             var toDoChoice = 0;
             var projectChoice = 0;
@@ -33,7 +33,7 @@ namespace Asana
 
                 Console.WriteLine("11. Exit");
 
-                var choice = Console.ReadLine() ?? "6";
+                var choice = Console.ReadLine() ?? "11";
 
                 if (int.TryParse(choice, out choiceInt))
                 {
@@ -41,14 +41,29 @@ namespace Asana
                     {
                         case 1:
                             Console.Write("Name:");
-                            var name = Console.ReadLine();
+                            var todoName = Console.ReadLine();
                             Console.Write("Description:");
-                            var description = Console.ReadLine();
+                            var todoDescription = Console.ReadLine();
+                            Console.Write("Priority:");
+                            Console.Write("1. Low");
+                            Console.Write("2. Medium");
+                            Console.Write("3. High");
+                            Console.Write("0. None");
+                            var priorityChoice = Console.ReadLine() ?? "0";
+                            if (!(int.TryParse(priorityChoice, out priorityChoiceInt)))
+                            {
+                              priorityChoiceInt = 0;
+                            }
 
-                            toDos.Add(new ToDo { Name = name,
+                            toDos.Add(new ToDo 
+                            { 
+                                Name = name,
                                 Description = description,
+                                Priority = priorityChoiceInt,
                                 IsCompleted = false,
-                                Id = ++itemCount});
+                                Id = ++todoCount,
+                                ProjectId = 0,
+                            });
                             break;
                         case 2:
                             toDos.ForEach(Console.WriteLine);
