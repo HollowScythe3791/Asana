@@ -11,6 +11,11 @@ namespace Asana
             int choiceInt;
             var itemCount = 0;
             var toDoChoice = 0;
+            
+            var projectCount = 0;
+            var toDoChoice = 0;
+            var projectChoice = 0;
+
             do
             {
                 Console.WriteLine("Choose a menu option:");
@@ -19,7 +24,14 @@ namespace Asana
                 Console.WriteLine("3. List all outstanding ToDos");
                 Console.WriteLine("4. Delete a ToDo");
                 Console.WriteLine("5. Update a ToDo");
-                Console.WriteLine("6. Exit");
+
+                Console.WriteLine("6. Create a Project");
+                Console.WriteLine("7. Delete a Project");
+                Console.WriteLine("8. Update a Project");
+                Console.WriteLine("9. List all Projects");
+                Console.WriteLine("10. List all ToDos in a given Project");
+
+                Console.WriteLine("11. Exit");
 
                 var choice = Console.ReadLine() ?? "6";
 
