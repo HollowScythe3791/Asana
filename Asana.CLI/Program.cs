@@ -13,7 +13,7 @@ namespace Asana
             int priorityChoiceInt;
             var todoCount = 0;
             var projectCount = 0;
-            var toDoChoice = 0;
+            var todoChoice = 0;
             var projectChoice = 0;
 
             do
@@ -39,7 +39,7 @@ namespace Asana
                 {
                     switch (choiceInt)
                     {
-                        case 1:
+                        case 1: // add a Todo
                             Console.Write("Name:");
                             var todoName = Console.ReadLine();
                             Console.Write("Description:");
@@ -65,15 +65,15 @@ namespace Asana
                                 ProjectId = 0,
                             });
                             break;
-                        case 2:
+                        case 2: // List all ToDos
                             toDos.ForEach(Console.WriteLine);
                             break;
-                        case 3:
+                        case 3: // List all outstanding Todos
                             toDos.Where(t => (t != null) && !(t?.IsCompleted ?? false))
                                 .ToList()
                                 .ForEach(Console.WriteLine);
                             break;
-                        case 4:
+                        case 4: // Delete a Todo
                             
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Delete: ");
@@ -86,7 +86,7 @@ namespace Asana
                             }
                             
                             break;
-                        case 5:
+                        case 5: // Update a Todo
                             
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Update: ");
@@ -102,7 +102,32 @@ namespace Asana
                             }
 
                             break;
-                        case 6:
+                        case 6: // Create a Project
+                            Console.Write("Name:");
+                            var projectName = Console.ReadLine();
+                            Console.Write("Description:");
+                            var projectDescription = Console.ReadLine();
+
+                            projects.Add(new Project {
+                                Name = projectName,
+                                Description = projectDescription,
+                                Id = ++projectCount});
+
+                            break;
+                        case 7: // Delete a Project
+                            projects.ForEach(Console.WriteLine);
+                            Console.Write("Project to Delete: ");
+                            projectChoice = int.Parse(Console.ReadLine() ?? "0");
+                            todoChoice = int.Parse(Console.ReadLine() ?? "0");
+
+                            var projectReference = projects.FirstOrDefault(t => t.Id == projectChoice); 
+                            if (projectReference != null)
+                            {
+                              projects.Remove(projectReference);
+                            }
+
+                            break;
+                        case 11:
                             break;
                         default:
                             Console.WriteLine("ERROR: Unknown menu selection");
