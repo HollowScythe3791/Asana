@@ -1,5 +1,7 @@
 ﻿using Asana.Library.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Asana
 {
@@ -59,8 +61,8 @@ namespace Asana
                                 priorityChoiceInt = 0;
                             }
 
-                            toDos.Add(new ToDo
-                            {
+                            toDos.Add(new ToDo 
+                            { 
                                 Name = todoName,
                                 Description = todoDescription,
                                 Priority = priorityChoiceInt,
@@ -80,7 +82,7 @@ namespace Asana
                         case 4: // Delete a Todo
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Delete: ");
-                            toDoChoice = int.Parse(Console.ReadLine() ?? "0");
+                            todoChoice = int.Parse(Console.ReadLine() ?? "0");
 
                             var reference = toDos.FirstOrDefault(t => t.Id == toDoChoice);
                             if (reference != null)
@@ -120,7 +122,6 @@ namespace Asana
                             projects.ForEach(Console.WriteLine);
                             Console.Write("Project to Delete: ");
                             projectChoice = int.Parse(Console.ReadLine() ?? "0");
-                            toDoChoice = int.Parse(Console.ReadLine() ?? "0");
 
                             var projectReference = projects.FirstOrDefault(t => t.Id == projectChoice);
                             if (projectReference != null)
@@ -161,7 +162,7 @@ namespace Asana
                     Console.WriteLine($"ERROR: {choice} is not a valid menu selection");
                 }
 
-            } while (choiceInt != 6);
+            } while (choiceInt != 11);
 
         }
     }
