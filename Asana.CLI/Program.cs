@@ -12,25 +12,29 @@ namespace Asana
             int choiceInt;
             int priorityChoiceInt;
             var todoCount = 0;
+            
             var projectCount = 0;
-            var todoChoice = 0;
+            var toDoChoice = 0;
             var projectChoice = 0;
 
             do
             {
+                Console.WriteLine("Welcome to AsanaLike!");
+                Console.WriteLine("To add Todos to Project, Create a ToDo, " +
+                    "Create a Project, then add the Todo to a project\n");
                 Console.WriteLine("Choose a menu option:");
                 Console.WriteLine("1. Create a ToDo");
                 Console.WriteLine("2. List all ToDos");
                 Console.WriteLine("3. List all outstanding ToDos");
                 Console.WriteLine("4. Delete a ToDo");
-                Console.WriteLine("5. Update a ToDo");
+                Console.WriteLine("5. Update a ToDo\n");
 
                 Console.WriteLine("6. Create a Project");
                 Console.WriteLine("7. Delete a Project");
                 Console.WriteLine("8. Update a Project");
                 Console.WriteLine("9. List all Projects");
-                Console.WriteLine("10. List all ToDos in a given Project");
-
+                Console.WriteLine("10. List all ToDos in a Given Project");
+                 
                 Console.WriteLine("11. Exit");
 
                 var choice = Console.ReadLine() ?? "11";
@@ -39,7 +43,7 @@ namespace Asana
                 {
                     switch (choiceInt)
                     {
-                        case 1: // add a Todo
+                        case 1: // Create a ToDo
                             Console.Write("Name:");
                             var todoName = Console.ReadLine();
                             Console.Write("Description:");
@@ -52,15 +56,15 @@ namespace Asana
                             var priorityChoice = Console.ReadLine() ?? "0";
                             if (!(int.TryParse(priorityChoice, out priorityChoiceInt)))
                             {
-                              priorityChoiceInt = 0;
+                                priorityChoiceInt = 0;
                             }
 
-                            toDos.Add(new ToDo 
-                            { 
-                                Name = name,
-                                Description = description,
+                            toDos.Add(new ToDo
+                            {
+                                Name = todoName,
+                                Description = todoDescription,
                                 Priority = priorityChoiceInt,
-                                IsCompleted = false,
+                                IsComplete = false,
                                 Id = ++todoCount,
                                 ProjectId = 0,
                             });
@@ -69,12 +73,11 @@ namespace Asana
                             toDos.ForEach(Console.WriteLine);
                             break;
                         case 3: // List all outstanding Todos
-                            toDos.Where(t => (t != null) && !(t?.IsCompleted ?? false))
+                            toDos.Where(t => (t != null) && !(t?.IsComplete ?? false))
                                 .ToList()
                                 .ForEach(Console.WriteLine);
                             break;
                         case 4: // Delete a Todo
-                            
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Delete: ");
                             toDoChoice = int.Parse(Console.ReadLine() ?? "0");
@@ -86,8 +89,7 @@ namespace Asana
                             }
                             
                             break;
-                        case 5: // Update a Todo
-                            
+                        case 5: // Update a ToDo
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Update: ");
                             toDoChoice = int.Parse(Console.ReadLine() ?? "0");
@@ -100,7 +102,6 @@ namespace Asana
                                 Console.Write("Description:");
                                 updateReference.Description = Console.ReadLine();
                             }
-
                             break;
                         case 6: // Create a Project
                             Console.Write("Name:");
@@ -108,24 +109,46 @@ namespace Asana
                             Console.Write("Description:");
                             var projectDescription = Console.ReadLine();
 
-                            projects.Add(new Project {
+                            projects.Add(new Project { 
                                 Name = projectName,
                                 Description = projectDescription,
                                 Id = ++projectCount});
-
+                      
                             break;
                         case 7: // Delete a Project
+
                             projects.ForEach(Console.WriteLine);
                             Console.Write("Project to Delete: ");
                             projectChoice = int.Parse(Console.ReadLine() ?? "0");
-                            todoChoice = int.Parse(Console.ReadLine() ?? "0");
+                            toDoChoice = int.Parse(Console.ReadLine() ?? "0");
 
-                            var projectReference = projects.FirstOrDefault(t => t.Id == projectChoice); 
+                            var projectReference = projects.FirstOrDefault(t => t.Id == projectChoice);
                             if (projectReference != null)
                             {
-                              projects.Remove(projectReference);
+                                projects.Remove(projectReference);
                             }
+                            
+                            break;
+                        case 8: // Update a Project
+                            projects.ForEach(Console.WriteLine);
+                            Console.Write("Project to Update: ");
+                            projectChoice = int.Parse(Console.ReadLine() ?? "0");
+                            var projectUpdateReference = projects.FirstOrDefault(t => t.Id == projectChoice);
 
+                            if(projectUpdateReference != null)
+                            {
+                                Console.Write("Name:");
+                                projectUpdateReference.Name = Console.ReadLine();
+                                Console.Write("Description:");
+                                projectUpdateReference.Description = Console.ReadLine();
+                            }
+                            break;
+
+                        case 9: // List all Project
+                            projects.ForEach(Console.WriteLine);
+                            break;
+
+                        case 10: // List all ToDos in a given Project
                             break;
                         case 11:
                             break;
