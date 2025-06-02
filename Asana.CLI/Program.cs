@@ -1,7 +1,5 @@
 ﻿using Asana.Library.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Asana
 {
@@ -16,14 +14,14 @@ namespace Asana
             var todoCount = 0;
             
             var projectCount = 0;
-            var toDoChoice = 0;
+            var todoChoice = 0;
             var projectChoice = 0;
 
+            Console.WriteLine("Welcome to AsanaLike!");
+            Console.WriteLine("To add Todos to Project, Create a ToDo, " +
+                "Create a Project, then add the Todo to a project\n");
             do
             {
-                Console.WriteLine("Welcome to AsanaLike!");
-                Console.WriteLine("To add Todos to Project, Create a ToDo, " +
-                    "Create a Project, then add the Todo to a project\n");
                 Console.WriteLine("Choose a menu option:");
                 Console.WriteLine("1. Create a ToDo");
                 Console.WriteLine("2. List all ToDos");
@@ -35,11 +33,9 @@ namespace Asana
                 Console.WriteLine("7. Delete a Project");
                 Console.WriteLine("8. Update a Project");
                 Console.WriteLine("9. List all Projects");
-                Console.WriteLine("10. List all ToDos in a Given Project");
-                 
-                Console.WriteLine("11. Exit");
+                Console.WriteLine("10. Exit");
 
-                var choice = Console.ReadLine() ?? "11";
+                var choice = Console.ReadLine() ?? "10";
 
                 if (int.TryParse(choice, out choiceInt))
                 {
@@ -50,11 +46,11 @@ namespace Asana
                             var todoName = Console.ReadLine();
                             Console.Write("Description:");
                             var todoDescription = Console.ReadLine();
-                            Console.Write("Priority:");
-                            Console.Write("1. Low");
-                            Console.Write("2. Medium");
-                            Console.Write("3. High");
-                            Console.Write("0. None");
+                            Console.Write("Priority:\n");
+                            Console.Write(" 0. None\n");
+                            Console.Write(" 1. Low\n");
+                            Console.Write(" 2. Medium\n");
+                            Console.Write(" 3. High\n");
                             var priorityChoice = Console.ReadLine() ?? "0";
                             if (!(int.TryParse(priorityChoice, out priorityChoiceInt)))
                             {
@@ -68,7 +64,7 @@ namespace Asana
                                 Priority = priorityChoiceInt,
                                 IsComplete = false,
                                 Id = ++todoCount,
-                                ProjectId = 0,
+                                ProjectId = null,
                             });
                             break;
                         case 2: // List all ToDos
@@ -84,7 +80,7 @@ namespace Asana
                             Console.Write("ToDo to Delete: ");
                             todoChoice = int.Parse(Console.ReadLine() ?? "0");
 
-                            var reference = toDos.FirstOrDefault(t => t.Id == toDoChoice);
+                            var reference = toDos.FirstOrDefault(t => t.Id == todoChoice);
                             if (reference != null)
                             {
                                 toDos.Remove(reference);
@@ -94,8 +90,8 @@ namespace Asana
                         case 5: // Update a ToDo
                             toDos.ForEach(Console.WriteLine);
                             Console.Write("ToDo to Update: ");
-                            toDoChoice = int.Parse(Console.ReadLine() ?? "0");
-                            var updateReference = toDos.FirstOrDefault(t => t.Id == toDoChoice);
+                            todoChoice = int.Parse(Console.ReadLine() ?? "0");
+                            var updateReference = toDos.FirstOrDefault(t => t.Id == todoChoice);
 
                             if(updateReference != null)
                             {
@@ -148,10 +144,7 @@ namespace Asana
                         case 9: // List all Project
                             projects.ForEach(Console.WriteLine);
                             break;
-
-                        case 10: // List all ToDos in a given Project
-                            break;
-                        case 11:
+                        case 10:
                             break;
                         default:
                             Console.WriteLine("ERROR: Unknown menu selection");
@@ -162,7 +155,7 @@ namespace Asana
                     Console.WriteLine($"ERROR: {choice} is not a valid menu selection");
                 }
 
-            } while (choiceInt != 11);
+            } while (choiceInt != 10);
 
         }
     }
