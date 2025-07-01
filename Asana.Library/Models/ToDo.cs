@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 namespace Asana.Library.Models
 {
     public class ToDo
-    {
-        public int Id { get; set; }
+    { 
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public int? Priority { get; set; }
-        public bool? IsComplete { get; set; }
-        public int? ProjectId { get; set; } 
-
+        public int? Priority {  get; set; }
+        public bool? IsCompleted { get; set; }
+        public int Id { get; set; }
         public override string ToString()
         {
-            return $"[{Id}] {Name} - {Description} - Priority: {Priority}";
+            return $"[{Id}] {Name} - {Description}";
         }
     }
 }
